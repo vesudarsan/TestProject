@@ -130,35 +130,9 @@ public class ModbusClientRun {
         }
        
         
+              
         
-            
-        
-        //while (true)
-//        do
-//        {
-//        	try
-//        	{
-//        		int[] responseHoldingRegs = modbusClient.ReadHoldingRegisters(myConnection.startAddr, myConnection.noOfReg);
-//        		Thread.sleep(500);
-//        		
-////        		for (int i=0; i<responseHoldingRegs.length; i++)
-////        		{        			
-////        			System.out.println(responseHoldingRegs[i]);
-////        		}
-////        		System.out.println("--------------------");
-////        		System.out.println("responseHoldingRegs.length " + responseHoldingRegs.length);
-//        		
-//        	}
-//        	catch (Exception e)
-//        	{
-//        		
-//        	}
-//        	finally
-//        	{
-//        		
-//        	}
-//        }
-//        	while(false);
+
         }
 
 
