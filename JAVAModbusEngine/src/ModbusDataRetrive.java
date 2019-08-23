@@ -162,7 +162,7 @@ public class ModbusDataRetrive {
 				
 				
 				modbusInterfaceList = modbusDatastructList(jsonArray);
-				System.out.println("FirstIdx, " + "FuncCode" + "ModbuStartAddr, " + "NoofRegs, " + "LastIdx" );
+				System.out.println("FirstIdx, " + "FuncCode, " + "ModbuStartAddr, " + "NoofRegs, " + "LastIdx" );
 				for(int i=0;i<modbusInterfaceList.size();i+=5){					
 					System.out.print( modbusInterfaceList.get(i));
 				    System.out.print(", " + modbusInterfaceList.get(i+1));

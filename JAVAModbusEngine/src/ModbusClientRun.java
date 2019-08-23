@@ -76,7 +76,7 @@ public class ModbusClientRun {
 		
 		ModbusClient modbusClient = new ModbusClient();
 		modbusClient.Connect(myConnection.targetIP,myConnection.port);
-        modbusClient.setUnitIdentifier((byte)1);
+        modbusClient.setUnitIdentifier((byte)1);//2dl read from file
 
         
         try
