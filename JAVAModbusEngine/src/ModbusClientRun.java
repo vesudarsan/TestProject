@@ -72,7 +72,7 @@ public class ModbusClientRun {
 //			return;
 //		}
 		
-		modbusInterfaceList = ModbusDataRetrive.readModbusRegisters( myConnection);
+		modbusInterfaceList = ModbusDataRetrive.readModbusRegisters( myConnection);//2dl first read modbus registers file and load datastructure
 		
 		ModbusClient modbusClient = new ModbusClient();
 		modbusClient.Connect(myConnection.targetIP,myConnection.port);
