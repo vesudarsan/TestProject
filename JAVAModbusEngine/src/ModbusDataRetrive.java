@@ -12,6 +12,9 @@ import org.json.simple.parser.ParseException;
 
 public class ModbusDataRetrive {
 	
+	
+	static JSONArray jsonAIGlobalObject;
+	
 
 	//the following method will load interface configuration data
 		public static boolean readModbusConfigFile (ModbusClientRun myConnection) throws IOException,JSONException, ParseException
@@ -160,7 +163,7 @@ public class ModbusDataRetrive {
 				JSONArray jsonArray = (JSONArray) jsonchildObject.get("AItagList");		
 				
 				
-				
+				jsonAIGlobalObject = jsonArray; // this is will be used for decoding signals //2dl add traces
 				modbusInterfaceList = modbusDatastructList(jsonArray);
 				System.out.println("FirstIdx, " + "FuncCode, " + "ModbuStartAddr, " + "NoofRegs, " + "LastIdx" );
 				for(int i=0;i<modbusInterfaceList.size();i+=5){					

@@ -11,51 +11,19 @@
 		},
 		
 		"AItagList": [
-		  {"tagId": "AIid1","modClass": 3,"modRegister": 1,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":1},
-		  {"tagId": "AIid2","modClass": 3,"modRegister": 3,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":1},
-		  {"tagId": "AIid3","modClass": 3,"modRegister": 5,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":1},
-		  {"tagId": "AIid4","modClass": 3,"modRegister": 7,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":1},
-		  {"tagId": "AIid5","modClass": 3,"modRegister": 9,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":1},
-		  {"tagId": "AIid6","modClass": 3,"modRegister": 11,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":1},
-		  {"tagId": "AIid7","modClass": 3,"modRegister": 13,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":1},
-		  {"tagId": "AIid8","modClass": 3,"modRegister": 15,"endianSize": "B16","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid9","modClass": 3,"modRegister": 16,"endianSize": "B16","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid10","modClass": 3,"modRegister": 17,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":1},
-		  {"tagId": "AIid11","modClass": 3,"modRegister": 19,"endianSize": "B16","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid12","modClass": 3,"modRegister": 20,"endianSize": "B16","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid13","modClass": 3,"modRegister": 21,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid14","modClass": 3,"modRegister": 23,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid15","modClass": 3,"modRegister": 25,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid16","modClass": 3,"modRegister": 27,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid17","modClass": 3,"modRegister": 29,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid18","modClass": 3,"modRegister": 31,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid19","modClass": 3,"modRegister": 33,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid20","modClass": 3,"modRegister": 35,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid21","modClass": 3,"modRegister": 37,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid22","modClass": 3,"modRegister": 39,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid23","modClass": 3,"modRegister": 41,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid24","modClass": 3,"modRegister": 43,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid25","modClass": 3,"modRegister": 45,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid26","modClass": 3,"modRegister": 47,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid27","modClass": 3,"modRegister": 49,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid28","modClass": 3,"modRegister": 51,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid29","modClass": 3,"modRegister": 53,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":1},
-
-		  {"tagId": "AIid30","modClass": 4,"modRegister": 1,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid31","modClass": 4,"modRegister": 2,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid32","modClass": 4,"modRegister": 3,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid33","modClass": 4,"modRegister": 4,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid34","modClass": 4,"modRegister": 5,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid35","modClass": 4,"modRegister": 6,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid36","modClass": 4,"modRegister": 7,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid37","modClass": 4,"modRegister": 8,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":1},
-		  {"tagId": "AIid38","modClass": 4,"modRegister": 9,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":1}		  
-		  ],
-		"DItagList": [
-		  {"tagId": "DIid1","modClass": 1,"modRegister": 1,"bit": null,"endianSize": null,"funcCode": 2,"tagType": "DI","encoding": null},
-		  {"tagId": "DIid2","modClass": 1,"modRegister": 2,"bit": null,"endianSize": null,"funcCode": 2,"tagType": "DI","encoding": null},
-		  {"tagId": "DIid3","modClass": 0,"modRegister": 1,"bit": null,"endianSize": null,"funcCode": 2,"tagType": "DI","encoding": null}		  
-		]
+		  {"tagId": "AIid1","modClass": 3,"modRegister": 1,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":"1.0"},
+		  {"tagId": "AIid2","modClass": 3,"modRegister": 3,"endianSize": "L32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":"1.0"},
+		  {"tagId": "AIid3","modClass": 3,"modRegister": 5,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":"1.0"},
+		  {"tagId": "AIid4","modClass": 3,"modRegister": 7,"endianSize": "L32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":"1.0"},
+		  {"tagId": "AIid5","modClass": 3,"modRegister": 9,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "floating","scaling":"1.0"},
+		  
+		  {"tagId": "AIid6","modClass": 3,"modRegister": 11,"endianSize": "B16","funcCode": 4,"tagType": "AI","encoding": "signed-2","scaling":"1.0"},
+		  {"tagId": "AIid7","modClass": 3,"modRegister": 12,"endianSize": "L16","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":"0.1"},
+		  {"tagId": "AIid8","modClass": 3,"modRegister": 13,"endianSize": "L16","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":"1.0"}
+		  
+		  
+		  
+		  ]
 		  
 		  
 		  
