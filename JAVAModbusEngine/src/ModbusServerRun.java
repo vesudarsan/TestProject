@@ -49,10 +49,10 @@ public class ModbusServerRun {
 			
 		}
 		//encoding float value for first modbus register
-		modbusServer.inputRegisters[1] = 0xC3;
-		modbusServer.inputRegisters[2] = 0xd9;
-		modbusServer.inputRegisters[3] = 0x8f;
-		modbusServer.inputRegisters[4] = 0xcd;
+//		modbusServer.inputRegisters[1] = 0xC3;
+//		modbusServer.inputRegisters[2] = 0xd9;
+//		modbusServer.inputRegisters[3] = 0x8f;
+//		modbusServer.inputRegisters[4] = 0xcd;
 	}
 
 }
