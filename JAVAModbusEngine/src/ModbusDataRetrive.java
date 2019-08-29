@@ -202,7 +202,8 @@ public class ModbusDataRetrive {
 			Object obj = jsonParser.parse(new FileReader(myConnection.modbusRegisterMapFileName));
 			JSONObject jsonObject = (JSONObject) obj;
 			JSONObject jsonchildObject = (JSONObject) jsonObject.get("dataset1");
-			//JSONObject jsonchil1dObject = (JSONObject) jsonchildObject.get("deviceInfo");
+			JSONObject jsonchil1dObject = (JSONObject) jsonchildObject.get("deviceInfo");
+			myConnection.slaveId = (int)(long)jsonchil1dObject.get("slaveId");
 			JSONArray jsonArray = (JSONArray) jsonchildObject.get("AItagList");		
 
 

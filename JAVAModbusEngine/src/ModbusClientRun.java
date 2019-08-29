@@ -1,11 +1,11 @@
 //import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
+//import java.nio.ByteBuffer;
+//import java.nio.ByteOrder;
 //import java.util.Set;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONException;
@@ -15,14 +15,13 @@ import org.json.simple.parser.ParseException;
 import de.re.easymodbus.modbusclient.ModbusClient;
 
 
-
-
-public class ModbusClientRun {
+public class ModbusClientRun 
+{
 
 
 	// The following class variables are used for each interface configuration
 	public String protocol,interfaceName,targetIP,linkType,interfaces,curDir;
-	public int dataset,gatewayID,port,period,timeout,timeWaitToRequest;
+	public int dataset,gatewayID,port,period,timeout,timeWaitToRequest,slaveId;
 	public boolean reconnect = false;
 
 	public int totalNoOfInterfaces;	
@@ -30,8 +29,6 @@ public class ModbusClientRun {
 
 	// The following class variables are used for modbus Register configurations
 	public int startAddr,noOfReg;
-
-
 
 	//Constructor
 	public ModbusClientRun()
@@ -41,7 +38,7 @@ public class ModbusClientRun {
 		System.out.println("Modbus Client Initiated");		
 	}
 
-	//add comments
+	//This method will converts all input bytes into little endian order(Least Significant Byte to Most Significant Byte)
 	public static int [] toLittleEndian(int [] value) 
 	{
 		final int length = value.length;
@@ -52,7 +49,7 @@ public class ModbusClientRun {
 		return result;
 	}
 	
-	//add comments
+	//This method will converts all input bytes into little endian order(Most Significant Byte to Least Significant Byte)
 	public static int [] toBigEndian(int [] value) 
 	{
 		final int length = value.length;
@@ -64,29 +61,68 @@ public class ModbusClientRun {
 	}
 
 
-
-	//add comments
+	//This method converts all input bytes to a integer value
 	public static int bytesToInteger(int [] value)
 	{
-		StringBuilder strNum = new StringBuilder();
-
-		for (int num : value) 
+		int result=0;
+		
+		for (int i=0; i<value.length;i++)
 		{
-			strNum.append((num));		    
-		}
-		return (Integer.parseInt(strNum.toString()));	
+			result |=  value[i]; // or operation			
+			if (i != value.length-1)
+			{
+				result <<= 8;
+			}
+		}	
+		
+		return result;
 
 	}
+	
+	//This method does two's complement and one's complement conversion for the input bytes
+	public static int signedConversion(int [] value, String signed)
+	{
+		int result=0;		
+	
+		if ((value[0] & 0x80) !=0)
+		{
+			result = bytesToInteger(value);	
+			// Two's compliment logic
+			if (value.length == 2)
+			{
+				result ^=0xFFFF;
+			}
+			else if (value.length == 4)
+			{
+				result ^=0xFFFFFFFF;
+			}	
+			
+			if (signed.equals("signed-2"))
+			{
+				result -=1;					
+			}
+			else if (signed.equals("signed-1"))
+			{
+				//do nothing
+			}
+			result *=-1;			
+		}
+		else
+		{
+			result = bytesToInteger(value);	
+		}			
+		return result;		
+	}
 
-
-	//add comments
+	
+	//This method converts input bytes to four byte float value
 	public static float bytesToFloat(int [] buffer)
 	{
 		return(Float.intBitsToFloat( buffer[3] ^ buffer[2]<<8 ^ buffer[1]<<16 ^ buffer[0]<<24));	
 	}	
 
-
-	//add comments
+	//This method extracts the modbus register bytes from the response and does the required transformation as required
+	// Output of this method is Tagid attached with engineering value.	
 	public static void decodeModbus_FC3_FC4(int [] rxBuff,int firstIdx, int lastIdx)
 	{
 
@@ -103,7 +139,7 @@ public class ModbusClientRun {
 
 
 			endiansize = (String)jsonObj.get("endianSize");			
-			encoding = (String)jsonObj.get("encoding");// 2dl add code later			
+			encoding = (String)jsonObj.get("encoding");			
 			tagId = (String)jsonObj.get("tagId");			
 			scaling = Float.valueOf((String)jsonObj.get("scaling"));
 
@@ -121,7 +157,7 @@ public class ModbusClientRun {
 			arryIndx += bytelen;
 
 
-			//code for Endian conversion
+			// Endian code check & conversion
 			if ((endiansize.equals("B32")) || (endiansize.equals("B16")))
 			{
 				bytes = toBigEndian(bytes);
@@ -138,15 +174,14 @@ public class ModbusClientRun {
 			}
 			else if (encoding.equals("signed-1"))
 			{
-				engineeringValue = bytesToInteger(bytes);
-				engineeringValue *=scaling;
-				//2dl need to add code
+				engineeringValue = signedConversion(bytes,"signed-1");
+				engineeringValue *=scaling;				
 			}
 			else if (encoding.equals("signed-2"))
-			{
-				engineeringValue = bytesToInteger(bytes);
+			{				
+				engineeringValue = signedConversion(bytes,"signed-2");
 				engineeringValue *=scaling;
-				//2dl need to add code
+
 			}
 			else if (encoding.equals("unsigned"))
 			{
@@ -159,7 +194,7 @@ public class ModbusClientRun {
 
 		}
 
-		System.out.println("------------One Modbus Transaction Done-----");
+		System.out.println("------------One Modbus Transaction Done-----");//2dl remove traces later
 
 	}
 
@@ -184,7 +219,8 @@ public class ModbusClientRun {
 
 		ModbusClient modbusClient = new ModbusClient();
 		modbusClient.Connect(myConnection.targetIP,myConnection.port);
-		modbusClient.setUnitIdentifier((byte)1);//2dl read from file
+		modbusClient.setUnitIdentifier((byte)myConnection.slaveId);
+	
 
 
 		try
@@ -200,19 +236,21 @@ public class ModbusClientRun {
 					lastIndex  = modbusInterfaceList.get(i+4);
 
 					if (funcCode == 3)// Read Holding Registers
-					{
+					{	
 						int[] responseHoldingRegs = modbusClient.ReadHoldingRegisters(myConnection.startAddr-1, myConnection.noOfReg);           			
 						decodeModbus_FC3_FC4(responseHoldingRegs,firstIndex,lastIndex);		
+						
 					}
 					else if (funcCode == 4)// Read Input Registers
-					{
+					{	
 						int[] responseInputRegs = modbusClient.ReadInputRegisters(myConnection.startAddr-1, myConnection.noOfReg);//2dl check start address again
 
 						decodeModbus_FC3_FC4(responseInputRegs,firstIndex,lastIndex);
+						
 
 					}
 				}
-
+				//2dl add period as delay
 			} while(false);        	
 
 
@@ -227,14 +265,7 @@ public class ModbusClientRun {
 		}
 
 
-
-
-
 	}
-
-
-
-
 }
 
 
