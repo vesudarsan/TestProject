@@ -29,56 +29,25 @@ public class ModbusClientRun
 			return;
 		}
 		
-//		Runnable runnable = () ->{
-//			try {
-//				object.run();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		};
-		
-		//ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
 
-//		service.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
-	//	service.execute();
-		
-		ExecutorService service = Executors.newFixedThreadPool(10);
-		for (int i=0;i<10;i++)
-		{
-			service.execute(new Task());
-		}
+		int coreCount = Runtime.getRuntime().availableProcessors();		
+		ScheduledExecutorService service = Executors.newScheduledThreadPool(coreCount);
+		service.scheduleAtFixedRate(new Task(), 0, 3, TimeUnit.SECONDS);
+
 			
-
-
 	}
 	
 	static class Task implements Runnable
 	{
-		
-		
 					
 		public void run()
 		{
-			do 
-			{
-				try 
-				{
-					object.run();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}while(true);
-			
-			
+			try {
+				object.run();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 			
 			
 		}
