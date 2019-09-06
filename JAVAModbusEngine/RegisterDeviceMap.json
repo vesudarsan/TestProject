@@ -54,5 +54,29 @@
 		  
 		  
 	}
+"dataset2": {
+
+		"deviceInfo": {
+			"slaveId": 1,
+			"dataSet": 2,
+			"noOfAITags": 39,
+			"noOfDITags": 3,
+			"noOfAOTags": 0,
+			"noOfDOTags": 0
+		},
+		
+		"AItagList": [
+		  {"tagId": "AIid1","modClass": 3,"modRegister": 1,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "signed-2","scaling":"1.0"},
+		  {"tagId": "AIid2","modClass": 3,"modRegister": 3,"endianSize": "L32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":"1.0"},
+		  {"tagId": "AIid3","modClass": 3,"modRegister": 5,"endianSize": "B32","funcCode": 4,"tagType": "AI","encoding": "unsigned","scaling":"1.0"},
+		  
+ 
+		  {"tagId": "AIid23","modClass": 4,"modRegister": 7,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":"1.0"},
+		  {"tagId": "AIid24","modClass": 4,"modRegister": 8,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":"1.0"},
+		  {"tagId": "AIid25","modClass": 4,"modRegister": 9,"endianSize": "B16","funcCode": 3,"tagType": "AI","encoding": "unsigned","scaling":"1.0"}		  
+		  ]	  
+		  
+		  
+	}	
 
 }

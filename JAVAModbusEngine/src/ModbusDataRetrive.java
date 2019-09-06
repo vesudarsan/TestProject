@@ -22,21 +22,23 @@ public class ModbusDataRetrive {
 	private int dataset,gatewayID,period,timeout,timeWaitToRequest,port,slaveId;
 	private boolean reconnect = false;
 	private int totalNoOfInterfaces;	
-	public String modbusConfigFileName,modbusRegisterMapFileName;
+	public String modbusConfigFileName,modbusRegisterMapFileName,myDataset;
 
 	List<Integer> modbusInterfaceList = new ArrayList<Integer>();
 	JSONArray jsonAIGlobalObject;//2dl change name later
+	ModbusClient modbusClient;
 	
-	ModbusClient  object;//2dl check later
+
 
 
 
 	//Constructor
 	
-	public ModbusDataRetrive()
+	public ModbusDataRetrive(String dataset)
 	{
 		this.modbusConfigFileName = "ModbusConfig.json";
 		this.modbusRegisterMapFileName = "RegisterDeviceMap.json";
+		this.myDataset = dataset;
 		System.out.println("Modbus ModbusDataRetrive class Initiated");		
 	}
 
@@ -210,8 +212,7 @@ public class ModbusDataRetrive {
 
 			totalNoOfInterfaces = (int)(long)jsonObject.get("totalDatasets");
 
-
-			JSONObject jsonChildObject = (JSONObject) jsonObject.get("dataset1");
+			JSONObject jsonChildObject = (JSONObject) jsonObject.get(myDataset);
 			protocol = (String)jsonChildObject.get("protocol");
 			interfaceName = (String)jsonChildObject.get("interfaceName");
 			targetIP = (String)jsonChildObject.get("targetIP");
@@ -384,7 +385,7 @@ public class ModbusDataRetrive {
 		{
 			Object obj = jsonParser.parse(new FileReader(modbusRegisterMapFileName));
 			JSONObject jsonObject = (JSONObject) obj;
-			JSONObject jsonchildObject = (JSONObject) jsonObject.get("dataset1");
+			JSONObject jsonchildObject = (JSONObject) jsonObject.get(myDataset);
 			JSONObject jsonchil1dObject = (JSONObject) jsonchildObject.get("deviceInfo");
 			slaveId = (int)(long)jsonchil1dObject.get("slaveId");
 			JSONArray jsonArray = (JSONArray) jsonchildObject.get("AItagList");		
@@ -432,6 +433,8 @@ public class ModbusDataRetrive {
 			System.out.println("Gateway Interfaces will not launch");
 			return false;
 		}
+		
+		modbusClient = modbusDeviceConnection();
 
 
 	return true;
@@ -439,11 +442,12 @@ public class ModbusDataRetrive {
 	}
 	
 	//2dl here use single ton design pattern
-	private void modbusDeviceConnection() throws UnknownHostException, IOException
+	private ModbusClient modbusDeviceConnection() throws UnknownHostException, IOException
 	{
 		ModbusClient modbusClient = new ModbusClient();//2dl need to check this code
 		modbusClient.Connect(targetIP,port);
 		modbusClient.setUnitIdentifier((byte)slaveId);	
+		return (modbusClient);
 		
 	}
 	
@@ -451,18 +455,9 @@ public class ModbusDataRetrive {
 	{
 		int firstIndex=0,funcCode=0,startAddr=0,noOfReg=0,lastIndex=0;	
 			
-		
-//		modbusDeviceConnection();
-		// need to covert the following code to a method
-		ModbusClient modbusClient = new ModbusClient();//2dl need to check this code
-		modbusClient.Connect(targetIP,port);
-		modbusClient.setUnitIdentifier((byte)slaveId);
-//		System.out.println("modbusClient.hashCode()" + modbusClient.hashCode());//2dl 
-		
 		try
 		{
-			do
-			{
+			
 				for (int i=0;i<modbusInterfaceList.size()-1;i+=5)
 				{
 					firstIndex = modbusInterfaceList.get(i);
@@ -484,9 +479,6 @@ public class ModbusDataRetrive {
 
 					}
 				}
-				//2dl add period as delay
-			} while(false);        	
-
 
 		}
 		catch (Exception e)
@@ -495,6 +487,7 @@ public class ModbusDataRetrive {
 		}
 		finally
 		{
+			
 
 		}		
 		
