@@ -18,10 +18,10 @@ public class ModbusDataRetrive {
 
 
 	// The following class variables are used for each interface configuration
-	private String protocol,interfaceName,linkType,interfaces,curDir,targetIP;
-	private int dataset,gatewayID,period,timeout,timeWaitToRequest,port,slaveId;
-	private boolean reconnect = false;
-	private int totalNoOfInterfaces;	
+	public String protocol,interfaceName,linkType,interfaces,curDir,targetIP;
+	public int dataset,gatewayID,period,timeout,timeWaitToRequest,port,slaveId;
+	public boolean reconnect = false;
+	public int totalNoOfInterfaces;	
 	public String modbusConfigFileName,modbusRegisterMapFileName,myDataset;
 
 	List<Integer> modbusInterfaceList = new ArrayList<Integer>();
@@ -34,18 +34,18 @@ public class ModbusDataRetrive {
 
 	//Constructor
 	
-	public ModbusDataRetrive(String dataset)
+	public ModbusDataRetrive(int dataset)
 	{
 		this.modbusConfigFileName = "ModbusConfig.json";
 		this.modbusRegisterMapFileName = "RegisterDeviceMap.json";
-		this.myDataset = dataset;
-		System.out.println("Modbus ModbusDataRetrive class Initiated");		
+		this.myDataset = Integer.toString(dataset);		
+		System.out.println("ModbusDataRetrive class Initiated for " + "dataset: " + dataset);		
 	}
 
 
 	
 	//This method will converts all input bytes into little endian order(Least Significant Byte to Most Significant Byte)
-	private int [] toLittleEndian(int [] value) 
+	public int [] toLittleEndian(int [] value) 
 	{
 		final int length = value.length;
 		int [] result = new int[length];
@@ -56,7 +56,7 @@ public class ModbusDataRetrive {
 	}
 	
 	//This method will converts all input bytes into little endian order(Most Significant Byte to Least Significant Byte)
-	private int [] toBigEndian(int [] value) 
+	public int [] toBigEndian(int [] value) 
 	{
 		final int length = value.length;
 		int [] result = new int[length];
@@ -68,7 +68,7 @@ public class ModbusDataRetrive {
 
 
 	//This method converts all input bytes to a integer value
-	private int bytesToInteger(int [] value)
+	public int bytesToInteger(int [] value)
 	{
 		int result=0;		
 		for (int i=0; i<value.length;i++)
@@ -83,7 +83,7 @@ public class ModbusDataRetrive {
 	}
 	
 	//This method does two's complement and one's complement conversion for the input bytes
-	private int signedConversion(int [] value, String signed)
+	public int signedConversion(int [] value, String signed)
 	{
 		int result=0;		
 	
@@ -119,14 +119,14 @@ public class ModbusDataRetrive {
 
 	
 	//This method converts input bytes to four byte float value
-	private float bytesToFloat(int [] buffer)
+	public float bytesToFloat(int [] buffer)
 	{
 		return(Float.intBitsToFloat( buffer[3] ^ buffer[2]<<8 ^ buffer[1]<<16 ^ buffer[0]<<24));	
 	}	
 
 	//This method extracts the modbus register bytes from the response and does the required transformation as required
 	// Output of this method is Tagid attached with engineering value.	
-	private void decodeModbus_FC3_FC4(int [] rxBuff,int firstIdx, int lastIdx)	
+	public void decodeModbus_FC3_FC4(int [] rxBuff,int firstIdx, int lastIdx)	
 	{
 
 		String endiansize,encoding,tagId;
@@ -197,12 +197,40 @@ public class ModbusDataRetrive {
 
 		}
 
-		System.out.println("------------One Modbus Transaction Done-----");//2dl remove traces later
+		System.out.println("---One Modbus Transaction Done for DS: " + dataset);//2dl remove traces later
 
+	}
+	//the following method will read ModbusConfig.json file and identify number of interfaces
+	public static int readNoDevices (String modbusConfigFileName) 
+	{
+		int count =0;
+		JSONParser jsonParser = new JSONParser();
+		try {
+			Object obj = jsonParser.parse(new FileReader(modbusConfigFileName));
+			JSONObject jsonObject = (JSONObject) obj;	
+			count = (int)(long)jsonObject.get("totalDatasets");			
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("modbusConfigFileName file not found");
+			
+			e.printStackTrace();
+			return count;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+		
 	}
 
 	//the following method will load interface configuration data
-	private boolean readModbusConfigFile () throws IOException,JSONException, ParseException
+	public boolean readModbusConfigFile () throws IOException,JSONException, ParseException
 	{
 		JSONParser jsonParser = new JSONParser();
 		try
@@ -243,7 +271,7 @@ public class ModbusDataRetrive {
 	// This method will iterate over the json array schema and extract the following information
 	// if there is modbus address break found, then the list will be updated with the following info for each Modbus request
 	// First Index of the array, Function Code, ModbuStartAddr, No of Registers, Last Index of the array
-	private static List<Integer> modbusDatastructList(JSONArray jsonArray){
+	public static List<Integer> modbusDatastructList(JSONArray jsonArray){
 		int modRegister,nxtModRegister=0,noOfReg=0;
 		String endiansize;
 		int twoBytes=2,oneByte=1,diffValue=0;//2dl
@@ -376,7 +404,7 @@ public class ModbusDataRetrive {
 	}
 
 
-	private boolean readModbusRegisters()throws IOException,JSONException, ParseException
+	public boolean readModbusRegisters()throws IOException,JSONException, ParseException
 	{	
 		JSONParser jsonParser = new JSONParser();
 		boolean result = true;
@@ -442,7 +470,7 @@ public class ModbusDataRetrive {
 	}
 	
 	//2dl here use single ton design pattern
-	private ModbusClient modbusDeviceConnection() throws UnknownHostException, IOException
+	public ModbusClient modbusDeviceConnection() throws UnknownHostException, IOException
 	{
 		ModbusClient modbusClient = new ModbusClient();//2dl need to check this code
 		modbusClient.Connect(targetIP,port);
