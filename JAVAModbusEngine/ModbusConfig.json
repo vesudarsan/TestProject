@@ -4,7 +4,7 @@
 	"1":
 	{
 	"protocol":"ModbusTCP",
-	"interfaceName":"Inverter1",
+	"interfaceName":"Battery",
 	"dataSet":1,
 	"gatewayID":1,
 	"targetIP":"127.0.0.1",
@@ -19,8 +19,8 @@
 	
 	"2":
 	{
-	"protocol":"ModbusUDP",
-	"interfaceName":"Inverter2",
+	"protocol":"ModbusTCP",
+	"interfaceName":"Inverter",
 	"dataSet":2,
 	"gatewayID":1,
 	"targetIP":"127.0.0.2",

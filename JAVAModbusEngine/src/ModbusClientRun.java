@@ -9,8 +9,6 @@ import org.json.simple.parser.ParseException;
 
 
 
-
-
 public class ModbusClientRun 
 {
 	
@@ -32,7 +30,6 @@ public class ModbusClientRun
 			}						
 			
 		}
-	
 		
 				
 		Runnable runnable = () ->
@@ -50,8 +47,8 @@ public class ModbusClientRun
 			}
 		};
 
-		int coreCount = Runtime.getRuntime().availableProcessors();		
-		ScheduledExecutorService service = Executors.newScheduledThreadPool(coreCount);
+		//int coreCount = Runtime.getRuntime().availableProcessors();		
+		ScheduledExecutorService service = Executors.newScheduledThreadPool(noOfDevices);
 		service.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
 			
 	}
